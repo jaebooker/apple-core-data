@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        print("a lot of stuff is already here. Shame")
         //set up collection view layout to be half of the screen width and with some padding
         let flow = UICollectionViewFlowLayout()
         let screenSize = view.bounds.size
