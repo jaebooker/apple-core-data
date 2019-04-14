@@ -9,7 +9,7 @@
 
 import Foundation
 import CoreData
-
+import UIKit
 
 extension Item {
 
@@ -17,9 +17,9 @@ extension Item {
         return NSFetchRequest<Item>(entityName: "Item")
     }
 
-    @NSManaged public var itemImage: NSObject?
-    @NSManaged public var itemTitle: String?
-    @NSManaged public var loanee: NSObject?
-    @NSManaged public var notes: String?
+    @NSManaged public var itemImage: UIImage
+    @NSManaged public var itemTitle: String
+    @NSManaged public var loanee: Loanee
+    @NSManaged public var notes: String
 
 }
