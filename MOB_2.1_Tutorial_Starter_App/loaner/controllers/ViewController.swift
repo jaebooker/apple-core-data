@@ -47,10 +47,14 @@ class ViewController: UIViewController {
         //TODO: archive returned items instead of deleting them
         deleteItem(at: index)
     }
-    
-    func deleteItem(at index: Int) {
+    func deleteItem(at index: Int){
+        let viewContext = store.persistentContainer.viewContext
+        viewContext.delete(items[index])
+        //delete from datasource
         items.remove(at: index)
         collectionView.deleteItems(at: [IndexPath(row: index, section: 0)])
+        //save changes to MOC - Managed Object Context
+        store.saveContext()
     }
     //add results to an array if successful, else delete them all
     private func updateDataSource(){
