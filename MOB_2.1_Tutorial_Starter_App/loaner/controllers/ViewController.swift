@@ -16,10 +16,12 @@ class ViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        updateDataSource()
         store.saveContext()
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        updateDataSource()
         print("a lot of stuff is already here. Shame")
         //set up collection view layout to be half of the screen width and with some padding
         let flow = UICollectionViewFlowLayout()
@@ -49,6 +51,20 @@ class ViewController: UIViewController {
     func deleteItem(at index: Int) {
         items.remove(at: index)
         collectionView.deleteItems(at: [IndexPath(row: index, section: 0)])
+    }
+    //add results to an array if successful, else delete them all
+    private func updateDataSource(){
+        self.store.fetchPersistedData{
+            (fetchItemResult) in
+            switch fetchItemResult {
+            case let .success(items):
+                self.items = items
+            case .failure(_):
+                self.items.removeAll()
+            }
+            //update the current data by reloading
+            self.collectionView.reloadSections(IndexSet(integer: 0))
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
