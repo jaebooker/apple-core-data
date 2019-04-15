@@ -38,7 +38,7 @@ public class Item: NSManagedObject {
         super.awakeFromInsert()
         itemTitle = "fsdf"
         notes = "dsfs"
-        itemImage = UIImage(named: "sff")
+        itemImage = UIImage(named: "sff")!
         loanee = Loanee(name: "", contactNumber: "")
     }
 }

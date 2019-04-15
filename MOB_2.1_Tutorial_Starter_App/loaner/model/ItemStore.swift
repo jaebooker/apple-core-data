@@ -20,4 +20,15 @@ class ItemStore: NSObject {
         }
         return container
     }()
+    func saveContext() {
+        let viewContext = persistentContainer.viewContext
+        if viewContext.hasChanges {
+            do {
+                try viewContext.save()
+            } catch {
+                let nserror = error as NSError
+                fatalError("Error, error: \(nserror) that could be caused by \(nserror.userInfo)")
+            }
+        }
+    }
 }

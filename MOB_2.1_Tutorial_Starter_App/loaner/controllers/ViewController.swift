@@ -7,13 +7,17 @@
 //
 
 import UIKit
-
+import CoreData
 class ViewController: UIViewController {
-    
+    var store: ItemStore!
     var items: [Item] = []
     
     @IBOutlet weak var collectionView: UICollectionView!
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        store.saveContext()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         print("a lot of stuff is already here. Shame")
@@ -28,7 +32,8 @@ class ViewController: UIViewController {
     }
 
     func createNewItem() -> Item {
-        return Item(itemTitle: "Untitled Item")
+        let newItem = NSEntityDescription.insertNewObject(forEntityName: "Item", into: store.persistentContainer.viewContext) as! Item
+        return newItem
     }
     
     func add(saved item: Item) {
